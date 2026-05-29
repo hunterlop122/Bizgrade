@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter Digital — Web Design Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c8412d;
+    --accent2: #e8b84b;
+    --muted: #7a7670;
+    --white: #ffffff;
+    --border: rgba(10,10,10,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.875rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink); color: var(--paper);
+    padding: 0.6rem 1.4rem; border-radius: 2rem;
+    text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -10%; right: -5%;
+    width: 50vw; height: 50vw; max-width: 700px; max-height: 700px;
+    background: radial-gradient(circle, rgba(200,65,45,0.08) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--cream); border: 1px solid var(--border);
+    padding: 0.35rem 0.9rem; border-radius: 2rem;
+    font-size: 0.75rem; font-weight: 500; color: var(--muted);
+    margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05; letter-spacing: -0.03em;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+    font-family: 'DM Sans', sans-serif; font-weight: 300;
+  }
+  .hero-sub {
+    margin-top: 1.5rem; color: var(--muted);
+    font-size: 1.05rem; line-height: 1.7; max-width: 480px;
+  }
+  .hero-actions {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--ink); color: var(--paper);
+    padding: 0.85rem 2rem; border-radius: 2rem;
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: background 0.2s, transform 0.15s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-secondary {
+    border: 1.5px solid var(--ink); color: var(--ink);
+    padding: 0.85rem 2rem; border-radius: 2rem;
+    text-decoration: none; font-weight: 500; font-size: 0.95rem;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .stat { border-top: 1px solid var(--border); padding-top: 1rem; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800; color: var(--ink);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* Hero right - floating browser mockup */
+  .hero-visual {
+    position: relative; display: flex; align-items: center; justify-content: center;
+  }
+  .browser-frame {
+    background: var(--white); border-radius: 12px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
+    overflow: hidden; width: 100%; max-width: 520px;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .browser-bar {
+    background: #f0ede8; padding: 0.75rem 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .bd-r { background: #ff5f57; }
+  .bd-y { background: #febc2e; }
+  .bd-g { background: #28c840; }
+  .browser-url {
+    flex: 1; background: var(--cream); border-radius: 4px;
+    padding: 0.3rem 0.75rem; font-size: 0.72rem; color: var(--muted);
+    margin: 0 0.75rem;
+  }
+  .browser-content {
+    aspect-ratio: 16/10; overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .browser-content-inner {
+    text-align: center; color: white; padding: 2rem;
+  }
+  .browser-content-inner h3 {
+    font-family: 'Syne', sans-serif; font-size: 1.4rem;
+    font-weight: 800; margin-bottom: 0.5rem;
+  }
+  .browser-content-inner p { font-size: 0.8rem; opacity: 0.6; }
+  .mock-btn {
+    display: inline-block; margin-top: 1rem;
+    background: var(--accent); color: white;
+    padding: 0.5rem 1.25rem; border-radius: 2rem;
+    font-size: 0.75rem; font-weight: 600;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: var(--cream); overflow: hidden; padding: 1rem 0;
+  }
+  .marquee-track {
+    display: flex; gap: 3rem; white-space: nowrap;
+    animation: marquee 25s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .marquee-item::after {
+    content: '✦'; color: var(--accent); font-size: 0.6rem;
+  }
+
+  /* ── SECTION HEADERS ── */
+  section { padding: 6rem 3rem; }
+  .section-tag {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em; max-width: 600px;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 1rem;
+    line-height: 1.7; max-width: 520px; margin-top: 1rem;
+  }
+  .section-header { margin-bottom: 4rem; }
+
+  /* ── PORTFOLIO GRID ── */
+  #work { background: var(--ink); color: var(--paper); }
+  #work .section-tag { color: var(--accent2); }
+  #work .section-title { color: var(--paper); }
+  #work .section-sub { color: rgba(245,242,236,0.55); }
+
+  .portfolio-filter {
+    display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem;
+  }
+  .filter-btn {
+    padding: 0.5rem 1.25rem; border-radius: 2rem;
+    border: 1px solid rgba(245,242,236,0.2); background: transparent;
+    color: rgba(245,242,236,0.55); font-size: 0.8rem; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent); border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .portfolio-card {
+    border-radius: 12px; overflow: hidden;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer; position: relative;
+  }
+  .portfolio-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .card-thumb {
+    aspect-ratio: 16/9; overflow: hidden; position: relative;
+  }
+  .card-thumb iframe {
+    width: 200%; height: 200%;
+    transform: scale(0.5); transform-origin: top left;
+    pointer-events: none; border: none;
+    background: white;
+  }
+  .card-thumb-fallback {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 0.75rem;
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+  }
+  .thumb-icon { font-size: 2.5rem; }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 1.25rem;
+  }
+  .portfolio-card:hover .card-overlay { opacity: 1; }
+  .overlay-launch {
+    background: var(--white); color: var(--ink);
+    padding: 0.5rem 1.25rem; border-radius: 2rem;
+    font-size: 0.8rem; font-weight: 600; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+
+  .card-body { padding: 1.25rem; }
+  .card-niche {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 0.4rem;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem; font-weight: 700; color: var(--paper);
+    margin-bottom: 0.35rem;
+  }
+  .card-desc { font-size: 0.82rem; color: rgba(245,242,236,0.5); line-height: 1.5; }
+  .card-tags {
+    display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.85rem;
+  }
+  .tag {
+    padding: 0.25rem 0.65rem; border-radius: 1rem;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.7rem; color: rgba(245,242,236,0.5);
+  }
+
+  /* LARGE CARD */
+  .portfolio-card.large { grid-column: span 2; }
+  .portfolio-card.large .card-thumb { aspect-ratio: 21/9; }
+
+  /* ── DEMO MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--white); border-radius: 16px;
+    width: 100%; max-width: 1100px; max-height: 90vh;
+    overflow: hidden; display: flex; flex-direction: column;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.3s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+  .modal-header {
+    padding: 1.25rem 1.5rem;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+  }
+  .modal-dots { display: flex; gap: 0.4rem; }
+  .modal-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .modal-url {
+    flex: 1; background: rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 0.35rem 1rem;
+    font-size: 0.78rem; color: rgba(245,242,236,0.7);
+    font-family: monospace;
+  }
+  .modal-close {
+    background: rgba(255,255,255,0.1); border: none;
+    color: var(--paper); width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; font-size: 1.1rem; transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-close:hover { background: var(--accent); }
+  .modal-body {
+    flex: 1; overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .modal-actions {
+    padding: 1rem 1.5rem; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cream); flex-shrink: 0;
+  }
+  .modal-meta { display: flex; flex-direction: column; gap: 0.2rem; }
+  .modal-project-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+  .modal-project-type { font-size: 0.78rem; color: var(--muted); }
+  .modal-btn-group { display: flex; gap: 0.75rem; }
+  .modal-btn {
+    padding: 0.6rem 1.25rem; border-radius: 2rem;
+    font-size: 0.82rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: none;
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+  }
+  .modal-btn-outline {
+    border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
+  }
+  .modal-btn-outline:hover { background: var(--ink); color: var(--paper); }
+  .modal-btn-fill { background: var(--accent); color: white; }
+  .modal-btn-fill:hover { background: #a8321e; }
+
+  .modal-iframe-wrap {
+    flex: 1; overflow: hidden; position: relative; min-height: 0;
+  }
+  .modal-iframe-wrap iframe {
+    width: 100%; height: 100%; border: none; display: block;
+  }
+  .modal-demo-fallback {
+    width: 100%; height: 100%; min-height: 500px;
+    overflow-y: auto;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--cream); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .service-card {
+    background: var(--paper); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .service-icon {
+    font-size: 1.8rem; margin-bottom: 1.25rem;
+    width: 52px; height: 52px; background: var(--cream);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  }
+  .service-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem;
+  }
+  .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .service-price {
+    margin-top: 1.25rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 1.1rem; color: var(--accent);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--ink); color: var(--paper);
+    text-align: center;
+  }
+  #contact .section-title { color: var(--paper); margin: 0 auto; }
+  #contact .section-sub { color: rgba(245,242,236,0.55); margin: 1rem auto 0; }
+  .contact-form {
+    max-width: 560px; margin: 3rem auto 0;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .contact-form input, .contact-form textarea, .contact-form select {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 0.9rem 1.1rem;
+    color: var(--paper); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder {
+    color: rgba(245,242,236,0.35);
+  }
+  .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+    border-color: var(--accent);
+  }
+  .contact-form select { cursor: pointer; }
+  .contact-form select option { background: var(--ink); }
+  .contact-form button {
+    background: var(--accent); color: white;
+    padding: 1rem; border-radius: 8px; border: none;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+  }
+  .contact-form button:hover { background: #a8321e; transform: translateY(-2px); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505; color: rgba(255,255,255,0.35);
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.8rem;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1rem; color: var(--paper);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2.5rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-card.large { grid-column: span 1; }
+    .portfolio-card.large .card-thumb { aspect-ratio: 16/9; }
+    .services-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .modal { max-height: 95vh; }
+  }
+
+  /* ── INLINE DEMO PAGES ── */
+  /* These are used in the modal as full embedded demo sites */
+  .demo-page {
+    width: 100%; min-height: 500px;
+    font-family: 'DM Sans', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>H</span>unter Digital</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Start a Project</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available for New Projects</div>
+    <h1>Websites that<br><em>actually</em><br>convert.</h1>
+    <p class="hero-sub">I build high-performance e-commerce and small business sites that look sharp, load fast, and turn visitors into customers. Based in NYC, working everywhere.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View My Work ↓</a>
+      <a href="#contact" class="btn-secondary">Get a Quote</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Live Sites Built</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Niches Covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">48hr</div>
+        <div class="stat-label">Avg. First Draft</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="browser-frame">
+      <div class="browser-bar">
+        <div class="browser-dot bd-r"></div>
+        <div class="browser-dot bd-y"></div>
+        <div class="browser-dot bd-g"></div>
+        <div class="browser-url">hunterdigital.com/work</div>
+      </div>
+      <div class="browser-content">
+        <div class="browser-content-inner">
+          <div style="font-size:2.5rem;margin-bottom:.5rem">🛍️</div>
+          <h3>E-Commerce That Sells</h3>
+          <p>Clothing · Products · Restaurants · Tech</p>
+          <div class="mock-btn">View Portfolio →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">E-Commerce</span>
+    <span class="marquee-item">Shopify</span>
+    <span class="marquee-item">WooCommerce</span>
+    <span class="marquee-item">Small Business</span>
+    <span class="marquee-item">Restaurants</span>
+    <span class="marquee-item">Clothing Brands</span>
+    <span class="marquee-item">NYC Based</span>
+    <span class="marquee-item">SEO Ready</span>
+    <span class="marquee-item">Mobile First</span>
+    <span class="marquee-item">Fast Load Times</span>
+    <span class="marquee-item">E-Commerce</span>
+    <span class="marquee-item">Shopify</span>
+    <span class="marquee-item">WooCommerce</span>
+    <span class="marquee-item">Small Business</span>
+    <span class="marquee-item">Restaurants</span>
+    <span class="marquee-item">Clothing Brands</span>
+    <span class="marquee-item">NYC Based</span>
+    <span class="marquee-item">SEO Ready</span>
+    <span class="marquee-item">Mobile First</span>
+    <span class="marquee-item">Fast Load Times</span>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section id="work">
+  <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+    <div>
+      <span class="section-tag">Selected Work</span>
+      <h2 class="section-title">Projects that move the needle.</h2>
+      <p class="section-sub">A mix of live client sites and demo builds — click any card to preview or launch the full site.</p>
+    </div>
+    <div class="portfolio-filter" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ecommerce-clothing">Clothing</button>
+      <button class="filter-btn" data-filter="ecommerce-products">Products</button>
+      <button class="filter-btn" data-filter="small-business">Small Business</button>
+      <button class="filter-btn" data-filter="tech">Tech / App</button>
+    </div>
+  </div>
+
+  <div class="portfolio-grid" id="portfolioGrid">
+
+    <!-- REAL SITES -->
+    <div class="portfolio-card large" data-category="tech"
+         data-name="Moto Frontier"
+         data-type="Tech / App · Motorcycle Maintenance Platform"
+         data-url="https://motofrontier.com/"
+         data-live="https://motofrontier.com/">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#0f0f0f,#1a1a2e);">
+          <div class="thumb-icon">🏍️</div>
+          <span style="color:rgba(255,255,255,0.6);font-weight:600;">Moto Frontier</span>
+          <span style="font-size:0.72rem;">Digital Garage for Riders</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="https://motofrontier.com/" target="_blank">Launch Site ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">Tech / App</div>
+        <div class="card-title">Moto Frontier</div>
+        <div class="card-desc">Digital garage platform for motorcycle riders — maintenance tracking, ride logs, and build management. Clean, high-performance WordPress build.</div>
+        <div class="card-tags">
+          <span class="tag">WordPress</span><span class="tag">App Marketing</span><span class="tag">Dark Theme</span><span class="tag">Live Site</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="small-business"
+         data-name="Taino Woods"
+         data-type="Small Business · Woodworking & Crafts"
+         data-url="https://www.tainowoods.com/"
+         data-live="https://www.tainowoods.com/">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#3d2b1f,#6b4226);">
+          <div class="thumb-icon">🪵</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">Taino Woods</span>
+          <span style="font-size:0.72rem;">Handcrafted Woodworking</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="https://www.tainowoods.com/" target="_blank">Launch Site ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">Small Business</div>
+        <div class="card-title">Taino Woods</div>
+        <div class="card-desc">Artisan woodworking small business site with product showcase, gallery, and custom inquiry flow. Warm, craft-forward aesthetic.</div>
+        <div class="card-tags">
+          <span class="tag">WordPress</span><span class="tag">Craft / Artisan</span><span class="tag">Live Site</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="small-business"
+         data-name="El Kallejón Lounge"
+         data-type="Small Business · Restaurant / Bar"
+         data-url="https://elkallejonlounge.com/"
+         data-live="https://elkallejonlounge.com/">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#1a0a00,#4a1500);">
+          <div class="thumb-icon">🍹</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">El Kallejón Lounge</span>
+          <span style="font-size:0.72rem;">Restaurant & Bar</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="https://elkallejonlounge.com/" target="_blank">Launch Site ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">Restaurant / Bar</div>
+        <div class="card-title">El Kallejón Lounge</div>
+        <div class="card-desc">Moody, atmosphere-forward site for a NYC lounge. Menu display, event booking, and vibe-first design that gets people through the door.</div>
+        <div class="card-tags">
+          <span class="tag">WordPress</span><span class="tag">Restaurant</span><span class="tag">Booking</span><span class="tag">Live Site</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO SITES -->
+    <div class="portfolio-card" data-category="ecommerce-clothing"
+         data-name="ROVA Studio"
+         data-type="E-Commerce · Streetwear / Clothing Brand"
+         data-demo="demo-rova">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#111,#2a2a2a);">
+          <div class="thumb-icon">👕</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">ROVA Studio</span>
+          <span style="font-size:0.72rem;">Streetwear Brand</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="#" onclick="openDemo('demo-rova','ROVA Studio','E-Commerce · Streetwear'); return false;">Preview Demo ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">E-Commerce — Clothing</div>
+        <div class="card-title">ROVA Studio</div>
+        <div class="card-desc">Minimal, editorial streetwear store with product drops, lookbook, and cart. Inspired by contemporary fashion brand aesthetics.</div>
+        <div class="card-tags">
+          <span class="tag">Shopify</span><span class="tag">Streetwear</span><span class="tag">Demo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ecommerce-clothing"
+         data-name="VELA Swim"
+         data-type="E-Commerce · Women's Swimwear"
+         data-demo="demo-vela">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#0a4a6e,#1a8cad);">
+          <div class="thumb-icon">👙</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">VELA Swim</span>
+          <span style="font-size:0.72rem;">Women's Swimwear</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="#" onclick="openDemo('demo-vela','VELA Swim','E-Commerce · Swimwear'); return false;">Preview Demo ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">E-Commerce — Clothing</div>
+        <div class="card-title">VELA Swim</div>
+        <div class="card-desc">Luxury swimwear e-com with size guide, color swatches, and lifestyle photography layout. Coastal luxury brand feel.</div>
+        <div class="card-tags">
+          <span class="tag">WooCommerce</span><span class="tag">Swimwear</span><span class="tag">Demo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ecommerce-products"
+         data-name="Forge Supply Co."
+         data-type="E-Commerce · Tools & Hardware"
+         data-demo="demo-forge">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#1c1c1c,#3a2e00);">
+          <div class="thumb-icon">🔧</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">Forge Supply Co.</span>
+          <span style="font-size:0.72rem;">Tools & Hardware</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="#" onclick="openDemo('demo-forge','Forge Supply Co.','E-Commerce · Products'); return false;">Preview Demo ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">E-Commerce — Products</div>
+        <div class="card-title">Forge Supply Co.</div>
+        <div class="card-desc">Industrial-strength product e-com. Bulk ordering, product filtering, trade accounts, and a rugged brand identity built to convert tradespeople.</div>
+        <div class="card-tags">
+          <span class="tag">WooCommerce</span><span class="tag">B2B/B2C</span><span class="tag">Demo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="small-business"
+         data-name="Marisol Nails NYC"
+         data-type="Small Business · Beauty / Nail Salon"
+         data-demo="demo-marisol">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#2d1028,#8b3a6b);">
+          <div class="thumb-icon">💅</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">Marisol Nails NYC</span>
+          <span style="font-size:0.72rem;">Nail & Beauty Studio</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="#" onclick="openDemo('demo-marisol','Marisol Nails NYC','Small Business · Beauty'); return false;">Preview Demo ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">Small Business</div>
+        <div class="card-title">Marisol Nails NYC</div>
+        <div class="card-desc">Boutique nail salon with online booking, service menu, gallery of work, and Google reviews integration. Chic, conversion-focused design.</div>
+        <div class="card-tags">
+          <span class="tag">WordPress</span><span class="tag">Booksy</span><span class="tag">Demo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card" data-category="ecommerce-products"
+         data-name="Bloom Botanics"
+         data-type="E-Commerce · Skincare & Wellness Products"
+         data-demo="demo-bloom">
+      <div class="card-thumb">
+        <div class="card-thumb-fallback" style="background:linear-gradient(135deg,#1a2e1a,#2d5a2d);">
+          <div class="thumb-icon">🌿</div>
+          <span style="color:rgba(255,255,255,0.7);font-weight:600;">Bloom Botanics</span>
+          <span style="font-size:0.72rem;">Skincare & Wellness</span>
+        </div>
+        <div class="card-overlay">
+          <a class="overlay-launch" href="#" onclick="openDemo('demo-bloom','Bloom Botanics','E-Commerce · Skincare'); return false;">Preview Demo ↗</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-niche">E-Commerce — Products</div>
+        <div class="card-title">Bloom Botanics</div>
+        <div class="card-desc">Clean-label skincare brand with ingredient storytelling, bundle builder, and subscription flow. Organic, editorial aesthetic that builds trust.</div>
+        <div class="card-tags">
+          <span class="tag">Shopify</span><span class="tag">Skincare</span><span class="tag">Demo</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header">
+    <span class="section-tag">What I Offer</span>
+    <h2 class="section-title">Design. Build. Launch.</h2>
+    <p class="section-sub">Flat-rate packages — no agency markup, no hidden fees. You get direct communication and fast turnaround.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🛒</div>
+      <div class="service-title">E-Commerce Store</div>
+      <div class="service-desc">Shopify or WooCommerce store built from scratch. Product pages, cart, checkout, payment integration, and mobile optimization. Ready to sell.</div>
+      <div class="service-price">From $1,200</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏪</div>
+      <div class="service-title">Small Business Site</div>
+      <div class="service-desc">5–8 page professional website for restaurants, salons, contractors, and service businesses. Booking, menu, hours, map, and reviews built in.</div>
+      <div class="service-price">From $700</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">♻️</div>
+      <div class="service-title">Site Remodel</div>
+      <div class="service-desc">Take your outdated website and make it competitive. Same content, completely new look, speed improvements, and modern UX. Fast turnaround.</div>
+      <div class="service-price">From $500</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <div class="service-title">App Landing Page</div>
+      <div class="service-desc">High-converting marketing site for mobile apps, SaaS, or digital products. Hero, features, pricing, and app store links. Built to drive signups.</div>
+      <div class="service-price">From $600</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <div class="service-title">SEO + Speed Audit</div>
+      <div class="service-desc">Full technical SEO audit, Core Web Vitals improvements, image optimization, and structured data. Delivered as a report + implementation.</div>
+      <div class="service-price">From $250</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤝</div>
+      <div class="service-title">Monthly Retainer</div>
+      <div class="service-desc">Ongoing maintenance, updates, content additions, and priority support. Perfect for businesses that want a reliable tech partner month-to-month.</div>
+      <div class="service-price">From $200/mo</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-tag" style="color:var(--accent2);">Let's Build Something</span>
+  <h2 class="section-title">Ready to get started?</h2>
+  <p class="section-sub">Tell me about your project and I'll get back to you within 24 hours with a quote and timeline.</p>
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <div class="form-row">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+    </div>
+    <select>
+      <option value="" disabled selected>Project Type</option>
+      <option>E-Commerce Store (Clothing)</option>
+      <option>E-Commerce Store (Products)</option>
+      <option>Small Business Site</option>
+      <option>Restaurant / Bar</option>
+      <option>Site Remodel</option>
+      <option>App Landing Page</option>
+      <option>Monthly Retainer</option>
+      <option>Other</option>
+    </select>
+    <input type="text" placeholder="Website or Business Name">
+    <textarea rows="4" placeholder="Tell me about your project — what do you need and when?"></textarea>
+    <button type="submit">Send Message →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#"><span>H</span>unter Digital</a>
+  <span>© 2025 Hunter Digital · New York City</span>
+  <span>Built to convert.</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-dots">
+        <div class="modal-dot" style="background:#ff5f57;"></div>
+        <div class="modal-dot" style="background:#febc2e;"></div>
+        <div class="modal-dot" style="background:#28c840;"></div>
+      </div>
+      <div class="modal-url" id="modalUrl">hunterdigital.com/demo</div>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-iframe-wrap" id="modalContent"></div>
+    </div>
+    <div class="modal-actions">
+      <div class="modal-meta">
+        <div class="modal-project-name" id="modalName">Project</div>
+        <div class="modal-project-type" id="modalType">Type</div>
+      </div>
+      <div class="modal-btn-group">
+        <button class="modal-btn modal-btn-outline" onclick="closeModalBtn()">Close</button>
+        <a class="modal-btn modal-btn-fill" id="modalLiveLink" href="#" target="_blank">Visit Live Site ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEMO SITE TEMPLATES (rendered inline into modal) -->
+<template id="demo-rova">
+<div style="font-family:'DM Sans',sans-serif;background:#0d0d0d;color:#f5f5f5;min-height:600px;">
+  <nav style="padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.08);">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0.1em;font-size:1.3rem;">ROVA</span>
+    <div style="display:flex;gap:2rem;font-size:0.82rem;color:rgba(255,255,255,0.5);">
+      <span style="cursor:pointer;">Shop</span><span style="cursor:pointer;">Lookbook</span><span style="cursor:pointer;">Drops</span>
+    </div>
+    <span style="font-size:1.2rem;cursor:pointer;">🛒</span>
+  </nav>
+  <div style="padding:4rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1rem;">SS25 Collection</div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:3.5rem;font-weight:800;line-height:1;margin-bottom:1.5rem;">WEAR<br>THE<br>VOID.</h1>
+      <p style="color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:2rem;max-width:340px;">Premium streetwear built for the city. Limited runs. No restocks. Drop every month.</p>
+      <button style="background:#f5f5f5;color:#0d0d0d;border:none;padding:0.9rem 2rem;font-weight:700;font-size:0.9rem;cursor:pointer;border-radius:2px;letter-spacing:0.05em;">SHOP DROP ↗</button>
+    </div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);height:320px;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-size:5rem;">👕</div>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);margin-top:0.5rem;">Void Tee – Washed Black</div>
+        <div style="font-size:1.1rem;font-weight:700;margin-top:0.25rem;">$68</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:2rem;border-top:1px solid rgba(255,255,255,0.08);">
+    <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.5rem;">Featured Products</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+      ${['Oversized Hoodie · $95','Cargo Shorts · $72','Coach Jacket · $140','Ribbed Polo · $58'].map((p,i)=>
+        `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);padding:1.25rem;border-radius:4px;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">${['🧥','🩳','🧥','👔'][i]}</div>
+          <div style="font-size:0.78rem;">${p}</div>
+        </div>`
+      ).join('')}
+    </div>
+  </div>
+</div>
+</template>
+
+<template id="demo-vela">
+<div style="font-family:'DM Sans',sans-serif;background:#f0f8ff;color:#0a2233;min-height:600px;">
+  <nav style="padding:1.2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:white;border-bottom:1px solid rgba(0,100,150,0.1);">
+    <span style="font-family:'Syne',sans-serif;font-weight:800;letter-spacing:0.08em;color:#0a2233;font-size:1.3rem;">VELA</span>
+    <div style="display:flex;gap:2rem;font-size:0.82rem;color:#5a7a8a;">
+      <span style="cursor:pointer;">Collections</span><span style="cursor:pointer;">Size Guide</span><span style="cursor:pointer;">About</span>
+    </div>
+    <button style="background:#0a2233;color:white;border:none;padding:0.55rem 1.25rem;border-radius:2rem;font-size:0.8rem;cursor:pointer;">Shop Now</button>
+  </nav>
+  <div style="background:linear-gradient(135deg,#0a4a6e,#1a8cad);padding:4rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
+    <div style="color:white;">
+      <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.6;margin-bottom:1rem;">2025 Resort Collection</div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;line-height:1.1;margin-bottom:1rem;">Sun, Salt<br>& Intention.</h1>
+      <p style="opacity:0.75;line-height:1.7;margin-bottom:1.5rem;max-width:340px;">Sustainably made swimwear for women who move through the world with purpose. Designed in NYC, worn everywhere.</p>
+      <button style="background:white;color:#0a4a6e;border:none;padding:0.85rem 1.75rem;border-radius:2rem;font-weight:600;font-size:0.88rem;cursor:pointer;">Explore Collection →</button>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:6rem;">👙</div>
+      <div style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin-top:0.5rem;">Azure One-Piece · $145</div>
+    </div>
+  </div>
+  <div style="padding:3rem 2.5rem;background:white;">
+    <h3 style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;">Shop by Style</h3>
+    <p style="color:#5a7a8a;font-size:0.85rem;margin-bottom:2rem;">Free shipping on orders over $100 · Sustainable packaging</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+      ${['One-Pieces','Bikinis','Cover-Ups'].map((s,i)=>`
+        <div style="background:#f0f8ff;border-radius:8px;padding:2rem;text-align:center;border:1px solid rgba(0,100,150,0.1);cursor:pointer;">
+          <div style="font-size:2.5rem;margin-bottom:0.75rem;">${['👙','🩱','🧣'][i]}</div>
+          <div style="font-weight:600;font-size:0.9rem;">${s}</div>
+          <div style="font-size:0.75rem;color:#5a7a8a;margin-top:0.25rem;">12 Styles</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+</div>
+</template>
+
+<template id="demo-forge">
+<div style="font-family:'DM Sans',sans-serif;background:#f4f1eb;color:#1a1a1a;min-height:600px;">
+  <nav style="padding:1rem 2rem;background:#1a1a1a;display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <span style="font-family:'Syne',sans-serif;font-weight:800;color:#f4f1eb;font-size:1.2rem;letter-spacing:0.05em;">FORGE</span>
+      <span style="font-family:'Syne',sans-serif;font-weight:300;color:rgba(244,241,235,0.4);font-size:1.2rem;"> SUPPLY CO.</span>
+    </div>
+    <div style="display:flex;gap:1.5rem;font-size:0.8rem;color:rgba(244,241,235,0.5);">
+      <span style="cursor:pointer;">Catalog</span><span style="cursor:pointer;">Trade Accounts</span><span style="cursor:pointer;">Bulk Orders</span>
+    </div>
+    <button style="background:#e8b84b;color:#1a1a1a;border:none;padding:0.55rem 1.1rem;font-weight:700;font-size:0.78rem;cursor:pointer;letter-spacing:0.05em;">GET QUOTE</button>
+  </nav>
+  <div style="background:#1a1a1a;padding:3rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
+    <div style="color:#f4f1eb;">
+      <div style="background:#e8b84b;display:inline-block;padding:0.25rem 0.75rem;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#1a1a1a;margin-bottom:1rem;">Professional Grade</div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:1rem;">Tools Built<br>For The Trade.</h1>
+      <p style="opacity:0.55;line-height:1.7;margin-bottom:1.5rem;font-size:0.88rem;">2,500+ products. Same-day NYC delivery. Trade account discounts up to 30%. Built for contractors, builders, and shop owners.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <button style="background:#e8b84b;color:#1a1a1a;border:none;padding:0.8rem 1.5rem;font-weight:700;font-size:0.85rem;cursor:pointer;">Shop Catalog</button>
+        <button style="background:transparent;color:#f4f1eb;border:1px solid rgba(244,241,235,0.25);padding:0.8rem 1.5rem;font-size:0.85rem;cursor:pointer;">Trade Account</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      ${['🔨 Hammers','🔧 Wrenches','⚡ Power Tools','📦 Bulk Packs'].map(p=>`
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:1rem;border-radius:4px;font-size:0.8rem;color:rgba(244,241,235,0.6);">${p}</div>
+      `).join('')}
+    </div>
+  </div>
+  <div style="padding:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+    ${[['🪚','Circular Saw','$189'],['🔩','Bit Set 100pc','$45'],['📐','Laser Level','$130'],['🔋','Battery Pack','$78']].map(([e,n,p])=>`
+      <div style="background:white;border:1px solid #e8e4db;border-radius:6px;padding:1.25rem;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">${e}</div>
+        <div style="font-size:0.82rem;font-weight:600;">${n}</div>
+        <div style="font-size:0.9rem;color:#c8412d;font-weight:700;margin-top:0.25rem;">${p}</div>
+        <button style="margin-top:0.75rem;background:#1a1a1a;color:white;border:none;padding:0.45rem 1rem;font-size:0.75rem;cursor:pointer;border-radius:2rem;width:100%;">Add to Cart</button>
+      </div>
+    `).join('')}
+  </div>
+</div>
+</template>
+
+<template id="demo-marisol">
+<div style="font-family:'DM Sans',sans-serif;background:#fdf6f9;color:#1a0a14;min-height:600px;">
+  <nav style="padding:1.2rem 2rem;background:white;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(139,58,107,0.1);">
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#2d1028;">Marisol Nails</div>
+      <div style="font-size:0.65rem;color:#8b3a6b;letter-spacing:0.1em;text-transform:uppercase;">NYC · Est. 2019</div>
+    </div>
+    <div style="display:flex;gap:1.5rem;font-size:0.82rem;color:#7a4a6a;">
+      <span style="cursor:pointer;">Services</span><span style="cursor:pointer;">Gallery</span><span style="cursor:pointer;">About</span>
+    </div>
+    <a href="#" style="background:#8b3a6b;color:white;text-decoration:none;padding:0.6rem 1.25rem;border-radius:2rem;font-size:0.8rem;font-weight:600;">Book Now</a>
+  </nav>
+  <div style="background:linear-gradient(135deg,#2d1028,#8b3a6b);padding:3.5rem 2rem;text-align:center;color:white;">
+    <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.6;margin-bottom:1rem;">Brooklyn's Favorite Nail Studio</div>
+    <h1 style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;margin-bottom:1rem;">Nails That Tell<br>Your Story.</h1>
+    <p style="opacity:0.75;max-width:420px;margin:0 auto 2rem;line-height:1.7;font-size:0.9rem;">Gel, acrylics, nail art, and press-ons. Walk-ins welcome. Book online and get 15% off your first visit.</p>
+    <button style="background:white;color:#2d1028;border:none;padding:0.9rem 2rem;border-radius:2rem;font-weight:700;font-size:0.9rem;cursor:pointer;">Book Your Appointment →</button>
+  </div>
+  <div style="padding:2.5rem 2rem;">
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;margin-bottom:1.5rem;">Our Services</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+      ${[['💅','Gel Manicure','$45 · 45 min'],['💎','Acrylic Set','$65 · 60 min'],['🎨','Nail Art','From $15'],['✨','Dip Powder','$55 · 50 min'],['💆','Pedicure','$50 · 45 min'],['👰','Bridal Set','Custom Quote']].map(([e,n,p])=>`
+        <div style="background:white;border:1px solid rgba(139,58,107,0.1);border-radius:8px;padding:1.25rem;display:flex;align-items:center;gap:0.75rem;">
+          <div style="font-size:1.5rem;">${e}</div>
+          <div><div style="font-weight:600;font-size:0.85rem;">${n}</div><div style="font-size:0.75rem;color:#8b3a6b;margin-top:0.1rem;">${p}</div></div>
+        </div>
+      `).join('')}
+    </div>
+    <div style="margin-top:2rem;background:rgba(139,58,107,0.06);border:1px solid rgba(139,58,107,0.1);border-radius:8px;padding:1.25rem;display:flex;align-items:center;gap:1rem;">
+      <div style="font-size:1.5rem;">⭐</div>
+      <div>
+        <div style="font-weight:600;font-size:0.88rem;">4.9 Stars · 312 Google Reviews</div>
+        <div style="font-size:0.78rem;color:#7a4a6a;margin-top:0.2rem;">"Best nail salon in Bushwick by far. Marisol is an artist." — Jasmine R.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
+
+<template id="demo-bloom">
+<div style="font-family:'DM Sans',sans-serif;background:#f8faf6;color:#1a2a1a;min-height:600px;">
+  <nav style="padding:1.2rem 2.5rem;background:white;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(45,90,45,0.1);">
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:#1a2a1a;letter-spacing:-0.02em;">bloom <span style="color:#3a7a3a;font-weight:400;font-style:italic;">botanics</span></div>
+    <div style="display:flex;gap:2rem;font-size:0.82rem;color:#5a7a5a;">
+      <span style="cursor:pointer;">Shop</span><span style="cursor:pointer;">Ingredients</span><span style="cursor:pointer;">Bundles</span><span style="cursor:pointer;">Subscribe</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span style="font-size:0.75rem;background:#e8f4e8;color:#3a7a3a;padding:0.25rem 0.75rem;border-radius:2rem;">🌱 Carbon Neutral</span>
+      <span style="cursor:pointer;">🛒</span>
+    </div>
+  </nav>
+  <div style="background:linear-gradient(135deg,#1a2e1a,#2d5a2d);padding:3.5rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;color:white;">
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.5;margin-bottom:1rem;">Clean Beauty · Certified Organic</div>
+      <h1 style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:1rem;">Your skin,<br>the way<br>nature intended.</h1>
+      <p style="opacity:0.7;line-height:1.7;margin-bottom:1.5rem;max-width:340px;font-size:0.9rem;">Plant-based formulas with zero fillers, zero toxins. Every ingredient listed. Every claim third-party tested.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <button style="background:#7ab87a;color:white;border:none;padding:0.85rem 1.75rem;border-radius:2rem;font-weight:600;font-size:0.88rem;cursor:pointer;">Shop Bestsellers</button>
+        <button style="background:transparent;color:white;border:1px solid rgba(255,255,255,0.3);padding:0.85rem 1.75rem;border-radius:2rem;font-size:0.88rem;cursor:pointer;">Build a Bundle</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      ${[['🌿','Vitamin C Serum','$58'],['🌸','Rose Face Oil','$72'],['🍵','Green Tea Toner','$38'],['✨','Retinol Night Cream','$85']].map(([e,n,p])=>`
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:1rem;text-align:center;">
+          <div style="font-size:1.8rem;margin-bottom:0.4rem;">${e}</div>
+          <div style="font-size:0.75rem;opacity:0.8;">${n}</div>
+          <div style="font-size:0.85rem;font-weight:700;margin-top:0.25rem;">${p}</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+  <div style="padding:2rem 2.5rem;background:white;border-top:1px solid rgba(45,90,45,0.1);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center;">
+      ${[['🧪','Third-Party Tested','Every formula verified by independent labs'],['♻️','Refillable Packaging','Ships in 100% compostable materials'],['🌍','1% for the Planet','We donate 1% of revenue to reforestation']].map(([e,t,d])=>`
+        <div style="padding:1.25rem;">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem;">${e}</div>
+          <div style="font-weight:700;font-size:0.85rem;margin-bottom:0.25rem;">${t}</div>
+          <div style="font-size:0.78rem;color:#5a7a5a;">${d}</div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+// ── FILTER ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.portfolio-card').forEach(card => {
+      const cat = card.dataset.category;
+      card.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+    });
+  });
+});
+
+// ── CARD CLICK ──
+document.querySelectorAll('.portfolio-card').forEach(card => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    const demo = card.dataset.demo;
+    const live = card.dataset.live;
+    const name = card.dataset.name;
+    const type = card.dataset.type;
+    const url  = card.dataset.url;
+    if (demo) openDemo(demo, name, type);
+    else if (live) openLive(live, name, type, url);
+  });
+});
+
+function openDemo(demoId, name, type) {
+  const tmpl = document.getElementById(demoId);
+  if (!tmpl) return;
+  const content = document.getElementById('modalContent');
+  content.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.style.cssText = 'width:100%;height:100%;min-height:560px;border:none;display:block;';
+  content.appendChild(iframe);
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  doc.open();
+  doc.write(`<!DOCTYPE html><html><head>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>*{box-sizing:border-box;margin:0;padding:0;}body{overflow-x:hidden;}</style>
+  </head><body>${tmpl.innerHTML}</body></html>`);
+  doc.close();
+
+  document.getElementById('modalName').textContent = name;
+  document.getElementById('modalType').textContent = type;
+  document.getElementById('modalUrl').textContent = 'demo.hunterdigital.com/' + demoId.replace('demo-','');
+  const ll = document.getElementById('modalLiveLink');
+  ll.href = '#';
+  ll.textContent = 'Request This Design';
+  ll.onclick = () => { closeModalBtn(); document.getElementById('contact').scrollIntoView({behavior:'smooth'}); return false; };
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openLive(url, name, type, displayUrl) {
+  const content = document.getElementById('modalContent');
+  content.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:100%;min-height:500px;flex-direction:column;gap:1rem;background:#f5f2ec;padding:2rem;text-align:center;">
+      <div style="font-size:3rem;">🌐</div>
+      <h3 style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;">${name}</h3>
+      <p style="color:#7a7670;max-width:380px;line-height:1.6;font-size:0.9rem;">This is a live production site. Click the button below to open it in a new tab — embedding live sites is blocked by browser security policies.</p>
+      <a href="${url}" target="_blank" style="background:#c8412d;color:white;padding:0.85rem 2rem;border-radius:2rem;text-decoration:none;font-weight:600;margin-top:0.5rem;">Open ${name} ↗</a>
+    </div>`;
+  document.getElementById('modalName').textContent = name;
+  document.getElementById('modalType').textContent = type;
+  document.getElementById('modalUrl').textContent = displayUrl || url;
+  const ll = document.getElementById('modalLiveLink');
+  ll.href = url;
+  ll.textContent = 'Visit Live Site ↗';
+  ll.onclick = null;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => { document.getElementById('modalContent').innerHTML = ''; }, 300);
+}
+
+// ── FORM ──
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = '#2d8a4e';
+  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+}
+</script>
+</body>
+</html>
